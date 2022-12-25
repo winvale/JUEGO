@@ -22,3 +22,10 @@
     position: absolute;
     background-color: tomato;
 }
+.ball{
+height: 20px;
+width: 20px;
+position: absolute;
+border-radius: 10px;
+background-color: rgb(128, 0, 0);
+}

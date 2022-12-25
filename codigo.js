@@ -1,13 +1,16 @@
 const contenedor = document.querySelector(".contenedor");
 //Definicion de medidas
 const altoTablero = 300;
-const anchoTable = 570;
+const anchoTablero = 570;
 const altoBloque = 20;
 const anchoBloque = 100;
 
 //definir posicion usurio
 const posicionInicialUsuario = [230, 10];
 let posicionActualUsuario = posicionInicialUsuario;
+//definir posicion ball
+const posicionInicialBall = [270, 40];
+let posicionActualBall = posicionInicialBall;
 //Definicion de la clase bloque
 class Bloque {
   constructor(ejeX, ejeY) {
@@ -58,3 +61,32 @@ const usuario = document.createElement("div");
 usuario.classList.add("usuario");
 contenedor.appendChild(usuario);
 dibujarUsuario();
+//mover al usuario
+function moverUsuario(e) {
+  switch (e.key) {
+    case "ArrowLeft":
+      if (posicionActualUsuario[0] > 0) {
+        posicionActualUsuario[0] -= 10;
+        dibujarUsuario();
+      }
+      break;
+    case "ArrowRight":
+      if (posicionActualUsuario[0] < anchoTablero - anchoBloque) {
+        posicionActualUsuario[0] += 10;
+        dibujarUsuario();
+      }
+  }
+}
+// añadir evento escuhador para el documento
+document.addEventListener("keydown", moverUsuario);
+
+//Funcion dibujar ball
+
+function dibujarBall() {
+  ball.style.left = posicionActualBall[0] + "px";
+  ball.style.bottom = posicionActualBall[0] + "px";
+}
+const ball = document.createElement("div");
+ball.classList.add("ball");
+contenedor.appendChild(ball);
+dibujarBall();
