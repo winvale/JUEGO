@@ -11,6 +11,12 @@ let posicionActualUsuario = posicionInicialUsuario;
 //definir posicion ball
 const posicionInicialBall = [270, 40];
 let posicionActualBall = posicionInicialBall;
+// definir mover ball
+let xDireccionBall = 2;
+let yDireccionBall = 2;
+let diametro = 20;
+//definir time
+
 //Definicion de la clase bloque
 class Bloque {
   constructor(ejeX, ejeY) {
@@ -84,9 +90,21 @@ document.addEventListener("keydown", moverUsuario);
 
 function dibujarBall() {
   ball.style.left = posicionActualBall[0] + "px";
-  ball.style.bottom = posicionActualBall[0] + "px";
+  ball.style.bottom = posicionActualBall[1] + "px";
 }
 const ball = document.createElement("div");
 ball.classList.add("ball");
 contenedor.appendChild(ball);
 dibujarBall();
+
+//proyecccion ball
+function moverBall() {
+  posicionActualBall[0] += xDireccionBall;
+  posicionActualBall[1] += yDireccionBall;
+  dibujarBall();
+}
+
+timerId = setInterval(moverBall, 20);
+
+//funcion de cambiar direccion
+function cambiarDireccion() {}
