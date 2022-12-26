@@ -5,6 +5,8 @@ const anchoTablero = 570;
 const altoBloque = 20;
 const anchoBloque = 100;
 
+//niveles
+const niveRandonXD = Math.floor(Math.random() * 20);
 //definir posicion usurio
 const posicionInicialUsuario = [230, 10];
 let posicionActualUsuario = posicionInicialUsuario;
@@ -109,7 +111,7 @@ function moverBall() {
   gameOver();
 }
 
-timerId = setInterval(moverBall, 15);
+timerId = setInterval(moverBall, niveRandonXD);
 
 function revisarColisiones() {
   // colisiones con bloques
