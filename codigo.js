@@ -110,7 +110,7 @@ function moverBall() {
   revisarColisiones();
   gameOver();
 }
-
+//timerId = setInterval(moverBall, 14); nivel normalito
 timerId = setInterval(moverBall, niveRandonXD);
 
 function revisarColisiones() {
