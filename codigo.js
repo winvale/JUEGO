@@ -109,7 +109,7 @@ function moverBall() {
   gameOver();
 }
 
-timerId = setInterval(moverBall, 20);
+timerId = setInterval(moverBall, 15);
 
 function revisarColisiones() {
   // colisiones con bloques
