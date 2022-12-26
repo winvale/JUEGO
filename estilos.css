@@ -29,3 +29,11 @@ position: absolute;
 border-radius: 10px;
 background-color: rgb(180, 44, 151);
 }
+.p{
+    text-align: center;
+    background-color: rgb(180, 67, 67);
+    font-size: xx-large;
+    padding: 132px;
+
+    
+}

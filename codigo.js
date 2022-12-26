@@ -15,12 +15,15 @@ let posicionActualBall = posicionInicialBall;
 let xDireccionBall = 2;
 let yDireccionBall = 2;
 let diametro = 20;
-//definir time
 
+const puntuacion = "";
+
+//definir time
+let timerID;
 //Definicion de la clase bloque
 class Bloque {
   constructor(ejeX, ejeY) {
-    this.bottomLefft = [ejeX, ejeY];
+    this.bottomLeft = [ejeX, ejeY];
     this.bottomRigth = [ejeX + anchoBloque, ejeY];
     this.topLeft = [ejeX, ejeY + altoBloque];
     this.topRigth = [ejeX + anchoBloque, ejeY + altoBloque];
@@ -50,8 +53,8 @@ function addBloques() {
   for (let i = 0; i < bloques.length; i++) {
     const bloque = document.createElement("div");
     bloque.classList.add("bloque");
-    bloque.style.left = bloques[i].bottomLefft[0] + "px";
-    bloque.style.bottom = bloques[i].bottomLefft[1] + "px";
+    bloque.style.left = bloques[i].bottomLeft[0] + "px";
+    bloque.style.bottom = bloques[i].bottomLeft[1] + "px";
     contenedor.appendChild(bloque);
   }
 }
@@ -102,9 +105,73 @@ function moverBall() {
   posicionActualBall[0] += xDireccionBall;
   posicionActualBall[1] += yDireccionBall;
   dibujarBall();
+  revisarColisiones();
+  gameOver();
 }
 
 timerId = setInterval(moverBall, 20);
 
+function revisarColisiones() {
+  // colisiones con bloques
+  for (let i = 0; i < bloques.length; i++) {
+    if (
+      posicionActualBall[0] > bloques[1].bottomLeft[0] &&
+      posicionActualBall[0] < bloques[i].bottomRigth[0] &&
+      posicionActualBall[1] + diametro > bloques[i].bottomLeft[1] &&
+      posicionActualBall[1] < bloques[i].topLeft[1]
+    ) {
+      const allTheBloques = Array.from(document.querySelectorAll(".bloque"));
+      allTheBloques[i].classList.remove("bloque");
+      bloques.splice(i, 1);
+      cambiarDireccion();
+    }
+  }
+
+  //colisiones con paredes
+  if (
+    posicionActualBall[0] >= anchoTablero - diametro ||
+    posicionActualBall[1] >= altoTablero - diametro ||
+    posicionActualBall[0] <= 0 ||
+    posicionActualBall[1] <= 0
+  ) {
+    cambiarDireccion();
+  }
+  //revision colision con usuario
+  if (
+    posicionActualBall[0] > posicionActualUsuario[0] &&
+    posicionActualBall[0] < posicionActualUsuario[0] + anchoBloque &&
+    posicionActualBall[1] > posicionActualUsuario[1] &&
+    posicionActualBall[1] < posicionActualUsuario[1] + altoBloque
+  ) {
+    cambiarDireccion();
+  }
+}
+//funcion game over
+function gameOver() {
+  if (posicionActualBall[1] <= 0) {
+    clearInterval(timerId);
+    puntuacion.innerHTML = "Perdiste Bestia... ";
+    document.removeEventListener("keydown", moverUsuario);
+
+    document.querySelector(".p").innerHTML = "¡Perdiste bestia!";
+  }
+}
 //funcion de cambiar direccion
-function cambiarDireccion() {}
+function cambiarDireccion() {
+  if (xDireccionBall === 2 && yDireccionBall === 2) {
+    yDireccionBall = -2;
+    return;
+  }
+  if (xDireccionBall === 2 && yDireccionBall === -2) {
+    xDireccionBall = -2;
+    return;
+  }
+  if (xDireccionBall === -2 && yDireccionBall === -2) {
+    yDireccionBall = 2;
+    return;
+  }
+  if (xDireccionBall === -2 && yDireccionBall === 2) {
+    xDireccionBall = 2;
+    return;
+  }
+}
