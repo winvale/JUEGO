@@ -156,6 +156,8 @@ function gameOver() {
     document.removeEventListener("keydown", moverUsuario);
 
     document.querySelector(".p").innerHTML = "¡Perdiste bestia!";
+    document.querySelector(".nivel").innerHTML =
+      "Niveles estan random Ojito recarga la pagina si quieres otro nivel";
   }
 }
 //funcion de cambiar direccion
